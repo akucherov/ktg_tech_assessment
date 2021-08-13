@@ -13,6 +13,15 @@ namespace ktg.tests
         public InternalTransferTest() {
             service = new InternalTransfer();
         }
+
+        [Fact]
+        public void EmptyListTest() {
+            var orders = new List<Order>();
+
+            var result = service.Collect(orders);
+
+            Assert.Equal(new List<int>(), result);
+        }
         [Fact]
         public void Test1()
         {

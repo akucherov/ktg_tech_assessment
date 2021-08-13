@@ -13,6 +13,31 @@ namespace ktg.tests
         public MinOverCancelationTest() {
             service = new MinOverCancelation();
         }
+        
+        [Fact]
+        public void EmptyListTest() {
+            var orders = new List<Order>();
+
+            var result = service.Collect(orders, 0);
+
+            Assert.Equal(new List<int>(), result);
+        }
+
+        [Fact]
+        public void UexpectedCancelationTargetTest() {
+            var orders = new List<Order> {
+                new Order() {Id = 1, Quantity = 3, Price = 100},
+                new Order() {Id = 2, Quantity = 2, Price = 100},
+                new Order() {Id = 3, Quantity = 3, Price = 100},
+                new Order() {Id = 4, Quantity = 1, Price = 100},
+                new Order() {Id = 5, Quantity = 5, Price = 100}
+            };
+
+            var result = service.Collect(orders, int.MaxValue);
+
+            Assert.Equal(new List<int>(), result);
+        }
+
         [Fact]
         public void Test1()
         {
