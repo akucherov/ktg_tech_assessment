@@ -77,5 +77,23 @@ namespace ktg.tests
 
             Assert.Equal(new List<int>() {5}, result);
         }
+
+        [Fact(Skip="optional")]
+        public void StressTest()
+        {
+            int size = 20;
+            int sum = 0;
+            var orders = new List<Order>();
+            var expectedResult = new List<int>();
+            for (int i = 1; i <= size; i++) {
+                var order = new Order() {Id = i, Quantity = i, Price = 100 };
+                orders.Add(order);
+                expectedResult.Add(i);
+            }
+
+            var result = service.Collect(orders, sum);
+
+            AssemblyTraitAttribute.Equals(expectedResult, result);
+        }
     }
 }
